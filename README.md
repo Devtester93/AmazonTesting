@@ -1,5 +1,5 @@
 # Appium Tests - Amazon app Testing
- - Technology used : Java, Junit, Appium, Maven.
+ - Technology used : Java, TestNG, Appium, Maven.
  
   -  Create a basic automation framework which supports Android devices
   -  Automate Amazon mobile application using the Appium tool in real android device or the simulator
