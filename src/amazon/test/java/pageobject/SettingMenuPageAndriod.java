@@ -8,21 +8,17 @@ public class SettingMenuPageAndriod implements ShoppingMenuPage  {
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
-    @AndroidFindBy(uiAutomator ="new UiSelector().resourceId(\"nav-hamburger-menu\")")
+    @AndroidFindBy(id ="in.amazon.mShop.android.shopping:id/chrome_action_bar_burger_icon")
     private MobileElement hamburgerMenu;
 
-    //This is the step to scroll into the view area then find the value
-    @AndroidFindBy(uiAutomator = "new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().resourceId([contains(@text,'Settings')])")
+    @AndroidFindBy(name = "Settings")
     private MobileElement settingsMenu;
 
-    @AndroidFindBy(uiAutomator ="new UiSelector().resourceId.contains[text(),(\"Change country/region.\")]")
+    @AndroidFindBy(name ="Change Country")
     private MobileElement changeCountryName;
 
-    @AndroidFindBy(uiAutomator ="new UiSelector().resourceId(\"Continue\")")
+    @AndroidFindBy(name ="Continue")
     private MobileElement countinueBtn;
-
-    @AndroidFindBy(uiAutomator ="new UiSelector().resourceId(\"country\")")
-    private MobileElement getcountryName;
 
     public void clickOnCountry(String countryName) {
         searchEditText.click();
@@ -31,22 +27,30 @@ public class SettingMenuPageAndriod implements ShoppingMenuPage  {
 
         //Clicking Hamburger Menu
         hamburgerMenu.click();
-        settingsMenu.click();
+
+        //Scroll and Touch to Settings Menu
+        TouchActions action = new TouchActions(driver);
+        action.scroll(settingsMenu, 10, 100);
+        action.perform();
+
         changeCountryName.click();
 
         List<MobileElement> country = _driver.findElements(By.xpath("//android.widget.TextView"));
 
         for (int i = 0; i < country.size(); i++) {
             if (country.get(i).getText().equalsIgnoreCase(countryName)) {
-
+                //Scroll and Touch to Settings Menu
+                TouchActions action = new TouchActions(driver);
+                action.scroll(country.get(i), 10, 100);
+                action.perform();
                 country.get(i).click();
-
             }
         }
         countinueBtn.click();
 
         String countryNameDetail = getcountryName.getText();
-
         Assert.assertTrue("The product Country details matched",countryNameDetail.equalignorecase(countryName));
+        File file  = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(file, new File("C:/temp/Screenshot3.jpg"));
     }
 }

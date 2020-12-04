@@ -11,7 +11,7 @@ public class SelectCountry extends BaseTestClass {
 
     @Test
     public void ClickCountry()  {
-        SettingMenuPage.clickOnCountry("Australia");
+        SettingMenuPage.clickOnCountry("Australia (English)");
     }
 
 }

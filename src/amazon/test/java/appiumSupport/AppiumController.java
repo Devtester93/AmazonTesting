@@ -32,7 +32,7 @@ public class AppiumController {
                 File appDir = new File(classpathRoot, "/app/Android");
                 File app = new File(appDir, "Amazon_shopping.apk");
                 capabilities.setCapability("platformName", "Android");
-                capabilities.setCapability("deviceName", "HT6B40203455");
+                capabilities.setCapability("deviceName", "RZ8M90DW02M");
                 capabilities.setCapability("app", app.getAbsolutePath());
                 capabilities.setCapability("appPackage", "com.amazon.mShop.android.shopping");
                 capabilities.setCapability("appActivity", "com.amazon.mShop.splashscreen.StartupActivity");

@@ -13,28 +13,28 @@ public class SignInPageAndroid implements SignInPage {
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"com.amazon.mShop.android.shopping:id/sign_in_button\")")
+    @AndroidFindBy(xpath = "//android.widget.Button[@resourceId='in.amazon.mShop.android.shopping:id/sign_in_button']")
     private MobileElement alreadyACustomerSignButton;
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"login_accordion_header\").text(\"Sign-In. Already a customer?\")")
+    @AndroidFindBy(id = "in.amazon.mShop.android.shopping:id/login_accordion_header")
     private MobileElement alreadyACustomerSignRadioButton;
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"ap_email_login\")")
+    @AndroidFindBy(id = "in.amazon.mShop.android.shopping:id/ap_email_login")
     private MobileElement emailUserNameEditText;
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"continue\")")
+    @AndroidFindBy(id = "in.amazon.mShop.android.shopping:id/continue")
     private MobileElement continueButton;
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"ap_password\")")
+    @AndroidFindBy(id = "in.amazon.mShop.android.shopping:id/ap_password")
     private MobileElement passwordEditText;
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"signInSubmit\")")
+    @AndroidFindBy(id = "in.amazon.mShop.android.shopping:id/signInSubmit")
     private MobileElement signInButton;
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().textStartsWith(\"Email a one-time passcode to\")")
+    @AndroidFindBy(name = "Email a one-time passcode to")
     private MobileElement emailOTPRadioButton;
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().className(\"android.widget.EditText\")")
+    @AndroidFindBy(className = "android.widget.EditText")
     private MobileElement emailOTPEditText;
 
 
@@ -58,8 +58,9 @@ public class SignInPageAndroid implements SignInPage {
             passwordEditText.sendKeys(otp);
             continueButton.click();
         }catch (NoSuchElementException ex){
-
             System.out.println("User is already logged in");
+            File file  = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+            FileUtils.copyFile(file, new File("C:/temp/Screenshot1.jpg"));
 
         }
 

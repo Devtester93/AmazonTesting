@@ -18,14 +18,13 @@ public class ShoppingPageAndroid implements ShoppingPage {
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"com.amazon.mShop.android.shopping:id/rs_search_src_text\")")
+    @AndroidFindBy(id = "com.amazon.mShop.android.shopping:id/rs_search_src_text")
     private MobileElement searchEditText;
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"title\")")
+    @AndroidFindBy(id = "com.amazon.mShop.android.shopping:id/title")
     private MobileElement titleTextView;
-
-    //This is the step to scroll into the view area then find the value
-    @AndroidFindBy(uiAutomator = "new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().resourceId(\"priceblock_ourprice\"))")
+    
+    @AndroidFindBy(id = "com.amazon.mShop.android.shopping:id/priceblock_ourprice")
     private MobileElement priceTextView;
 
     public void validateProductInfo(String productName) {
@@ -44,10 +43,16 @@ public class ShoppingPageAndroid implements ShoppingPage {
 
         String  productDescriptionCheckOut = titleTextView.getText();
 
+        TouchActions action = new TouchActions(driver);
+        action.scroll(priceTextView, 10, 100);
+        action.perform();
+
         String  productPriceCheckOut = priceTextView.getText();
 
         Assert.assertTrue("The product description text matched",productDescriptionCheckOut.contains(productDescriptionListing.substring(0, productDescriptionListing.indexOf("..."))));
         Assert.assertTrue("The price matched",productDescriptionListing.contains(productPriceCheckOut));
+        File file  = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(file, new File("C:/temp/Screenshot2.jpg"));
 
     }
 }
